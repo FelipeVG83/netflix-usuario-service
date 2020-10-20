@@ -15,14 +15,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fiap.netflix.usuarios.model.Assistidos;
 import com.fiap.netflix.usuarios.service.AssistidosService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/asssitidos")
+@Api(value = "Assistidos Controller")
 public class AssistidosController {
 
 	@Autowired
 	private AssistidosService assistidosService;
 
 	@GetMapping(value = "/{id}")
+	@ApiOperation(value = "Retorna lista de filmes assistidos por umusuários")
 	ResponseEntity<List<Assistidos>> consultarUsuarioPorId(@PathVariable int idUsuario) {
 		List<Assistidos> result = assistidosService.consultarPorIdUsuario(idUsuario);
 		if (result == null || result.isEmpty()) {
@@ -32,6 +37,7 @@ public class AssistidosController {
 	}
 	
 	@PostMapping(consumes = "application/json")
+	@ApiOperation(value = "Adiciona um filme assistido ao perfil de um umusuário")
 	ResponseEntity<Boolean> inserir(@RequestBody Assistidos assistido) {
 		Boolean result = assistidosService.inserir(assistido);
 		if (result == false) {

@@ -1,17 +1,8 @@
-CREATE TABLE usuario (
-    id     int PRIMARY KEY,
-    nome   varchar(100)
-);
+CREATE TABLE usuario (id int PRIMARY KEY, nome varchar(100));
 
-CREATE TABLE assistidos (
-    idUsuario int,
-    idFilme   int
-);
+CREATE TABLE assistidos (idUsuario int, idFilme int);
 
-CREATE TABLE interesse (
-    idUsuario int,
-    idFilme   int
-);
+CREATE TABLE interesse (idUsuario int, idFilme int);
 
 
 INSERT INTO USUARIO (id, nome) VALUES (1, 'Bruno Cavalcante');

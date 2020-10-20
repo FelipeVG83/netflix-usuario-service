@@ -14,14 +14,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fiap.netflix.usuarios.model.Usuario;
 import com.fiap.netflix.usuarios.service.UsuariosService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/usuarios")
+@Api(value = "Usuários Controller")
 public class UsuariosController {
 
 	@Autowired
 	private UsuariosService usuarioService;
 
 	@GetMapping()
+	@ApiOperation(value = "Retorna lista de usuários pesquisando por um nome")
 	ResponseEntity<List<Usuario>> consultarUsuariosPorNome(@RequestParam(value="nome") String nome) {
 		List<Usuario> result = usuarioService.consultarPorNome(nome);
 		if (result == null || result.isEmpty()) {
@@ -32,6 +37,7 @@ public class UsuariosController {
 	}
 
 	@GetMapping(value = "/{id}")
+	@ApiOperation(value = "Retorna usuário pesquisando por um id")
 	ResponseEntity<Usuario> consultarUsuarioPorId(@PathVariable int id) {
 		Usuario result = usuarioService.consultarPorId(id);
 		if (result == null) {

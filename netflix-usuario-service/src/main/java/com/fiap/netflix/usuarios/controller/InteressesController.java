@@ -12,19 +12,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fiap.netflix.usuarios.model.Assistidos;
 import com.fiap.netflix.usuarios.model.Interesse;
-import com.fiap.netflix.usuarios.model.Usuario;
 import com.fiap.netflix.usuarios.service.InteressesService;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/interesses")
+@Api(value = "Interesses Controller")
 public class InteressesController {
 
 	@Autowired
 	private InteressesService interessesService;
 
 	@GetMapping(value = "/{id}")
+	@ApiOperation(value = "Retorna lista de interesses de um usuário")
 	ResponseEntity<List<Interesse>> consultarUsuarioPorId(@PathVariable int idUsuario) {
 		List<Interesse> result = interessesService.consultarPorIdUsuario(idUsuario);
 		if (result == null || result.isEmpty()) {
@@ -34,6 +37,7 @@ public class InteressesController {
 	}
 	
 	@PostMapping(consumes = "application/json")
+	@ApiOperation(value = "Adiciona um interesse ao perfil de um usuário")
 	ResponseEntity<Boolean> inserir(@RequestBody Interesse interesse) {
 		Boolean result = interessesService.inserir(interesse);
 		if (result == false) {
