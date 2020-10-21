@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,24 +20,24 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/asssitidos")
+@RequestMapping("/assistidos")
 @Api(value = "Assistidos Controller")
 public class AssistidosController {
 
 	@Autowired
 	private AssistidosService assistidosService;
 
-	@GetMapping(value = "/{id}")
-	@ApiOperation(value = "Retorna lista de filmes assistidos por umusuários")
-	ResponseEntity<List<Assistidos>> consultarUsuarioPorId(@PathVariable int idUsuario) {
-		List<Assistidos> result = assistidosService.consultarPorIdUsuario(idUsuario);
+	@GetMapping(value = "/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Retorna lista de filmes assistidos por um usuário")
+	ResponseEntity<List<Assistidos>> consultarUsuarioPorId(@PathVariable int id) {
+		List<Assistidos> result = assistidosService.consultarPorIdUsuario(id);
 		if (result == null || result.isEmpty()) {
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);	
 		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
-	@PostMapping(consumes = "application/json")
+	@PostMapping(consumes = "application/json", produces=MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Adiciona um filme assistido ao perfil de um umusuário")
 	ResponseEntity<Boolean> inserir(@RequestBody Assistidos assistido) {
 		Boolean result = assistidosService.inserir(assistido);

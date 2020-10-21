@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fiap.netflix.usuarios.model.Assistidos;
 import com.fiap.netflix.usuarios.model.Interesse;
 import com.fiap.netflix.usuarios.repository.InteresseRepository;
 
